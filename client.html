@@ -33,10 +33,12 @@
                     'fruit1' : {x: 3, y: 1}
                 }
             }
-            render_screen()
+            renderScreen()
 
-            function render_screen()
+            function renderScreen()
             {
+                context.fillStyle = 'white'
+                context.fillRect(0, 0, 10, 10)
                 for ( playerId in game.players )
                 {
                     const player = game.players[playerId]
@@ -50,12 +52,8 @@
                     context.fillStyle = 'green'
                     context.fillRect(fruit.x, fruit.y, 1, 1 )
                 }
-                requestAnimationFrame(renderScrenn)
+                requestAnimationFrame(renderScreen)
             }
-
-
-            context.fillStyle = color
-            context.fillRect(position_x, position_y, width, height)
         </script>
     </body>
 </html>
