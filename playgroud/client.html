@@ -5,12 +5,34 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Royaloli</title>
         <link rel="stylesheet" href="style.css">
+
+        <script src="./keyboard_listener.js"></script>
+        <script src="./game.js"></script>
+        <script src="./render_screen.js"></script>
     </head>
     <body>
-        <main>
-            <canvas id="screen" height="10" width="10"></canvas>
-        </main>
+        <canvas id="screen" height="10" width="10"></canvas>
 
-        <script src="royaloli.js"></script>
+        <!-- <script type="module"> -->
+            <!-- import createKeyboardListener from './keyboard_listener.js' -->
+        <script>
+            <!-- const currentPlayerId = 'player1' -->
+
+
+            const game = createGame()
+            const keyBoardListener =  createKeyboardListener()
+            keyBoardListener.subscribe(game.movePlayer)
+
+
+            const screen = document.getElementById("screen")
+            renderScreen(screen, game, requestAnimationFrame)
+
+            game.addPlayer({playerId: "player1", playerX: 4, playerY: 2})
+            game.addPlayer({playerId: "player2", playerX: 2, playerY: 0})
+            game.addPlayer({playerId: "player3", playerX: 5, playerY: 6})
+            game.addFruit({fruitId: "fruit1", fruitX: 1, fruitY: 8})
+            game.addFruit({fruitId: "fruit2", fruitX: 9, fruitY: 7})
+
+        </script>
     </body>
 </html>
