@@ -1,4 +1,4 @@
-function renderScreen(screen, game, requestAnimationFrame)
+export default function renderScreen(screen, game, requestAnimationFrame)
 {
     const context = screen.getContext("2d")
     context.fillStyle = "white"

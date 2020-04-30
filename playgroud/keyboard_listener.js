@@ -1,6 +1,6 @@
-// export default function createKeyboardListener()
-function createKeyboardListener()
+export default function createKeyboardListener()
 {
+    console.log("test")
     const state = {
         observers: []
     }

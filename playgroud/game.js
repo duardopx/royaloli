@@ -1,8 +1,12 @@
-function createGame()
+export default function createGame()
 {
     const state = {
         players: {},
-        fruits: {}
+        fruits: {},
+        screen: {
+            width: 10,
+            height: 10
+        }
     }
 
     function addPlayer(command)
@@ -56,7 +60,7 @@ function createGame()
 
             ArrowDown(player)
             {
-                if (player.y + 1 < screen.height)
+                if (player.y + 1 < state.screen.height)
                 {
                     player.y = player.y + 1
                 }
@@ -72,7 +76,7 @@ function createGame()
 
             ArrowRight(player)
             {
-                if (player.x + 1 < screen.width)
+                if (player.x + 1 < state.screen.width)
                 {
                     player.x = player.x + 1
                 }
@@ -96,7 +100,7 @@ function createGame()
     {
         const player = state.players[playerId]
 
-        for (fruitId in state.fruits)
+        for (const fruitId in state.fruits)
         {
             const fruit = state.fruits[fruitId]
 
@@ -113,9 +117,9 @@ function createGame()
     return {
         addPlayer,
         removePlayer,
+        movePlayer,
         addFruit,
         removeFruit,
-        movePlayer,
         state
     }
 }
