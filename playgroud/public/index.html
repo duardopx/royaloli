@@ -4,17 +4,17 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Royaloli</title>
-        <link rel="stylesheet" href="style.css">
         <style>
-    #screen {
-        border: 10px solid #CCC;
-        image-rendering: pixelated;
-        image-rendering: crisp-edges;
-        image-rendering: -moz-crisp-edges;
-        width: 400px;
-        height: 400px;
-}
+            #screen {
+                border: 10px solid #CCC;
+                image-rendering: pixelated;
+                image-rendering: crisp-edges;
+                image-rendering: -moz-crisp-edges;
+                width: 400px;
+                height: 400px;
+            }
         </style>
+        <script src="/socket.io/socket.io.js"></script>
     </head>
     <body>
         <canvas id="screen" height="10" width="10"></canvas>
@@ -28,15 +28,22 @@
             const keyBoardListener =  createKeyboardListener(document)
             keyBoardListener.subscribe(game.movePlayer)
 
-
             const screen = document.getElementById("screen")
             renderScreen(screen, game, requestAnimationFrame)
 
-            game.addPlayer({playerId: "player1", playerX: 4, playerY: 2})
-            game.addPlayer({playerId: "player2", playerX: 2, playerY: 0})
-            game.addPlayer({playerId: "player3", playerX: 5, playerY: 6})
-            game.addFruit({fruitId: "fruit1", fruitX: 1, fruitY: 8})
-            game.addFruit({fruitId: "fruit2", fruitX: 9, fruitY: 7})
+            const socket = io()
+
+            socket.on('connect', () => {
+                const playerId = socket.id
+                console.log(`player connected on client with id ${playerId}`)
+            })
+
+            socket.on('setup', (state) => {
+                console.log(`> Receiving "setup" event from server`)
+                console.log(state)
+
+                game.state = state
+            })
         </script>
     </body>
 </html>
