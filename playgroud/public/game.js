@@ -9,15 +9,22 @@ export default function createGame()
         }
     }
 
+    function setState(newState)
+    {
+        Object.assign(state, newState)
+    }
+
     function addPlayer(command)
     {
         const playerId = command.playerId
-        const playerX = command.playerX
-        const playerY = command.playerY
+        const playerX = 'playerX' in command ? command.playerX :
+            Math.floor(Math.random() * state.screen.width)
+        const playerY = 'playerY' in command ? command.playerY :
+            Math.floor(Math.random() * state.screen.height)
 
         state.players[playerId] = {
             x: playerX,
-            y:playerY
+            y: playerY
         }
     }
 
@@ -120,6 +127,8 @@ export default function createGame()
         movePlayer,
         addFruit,
         removeFruit,
-        state
+        state,
+        setState
     }
 }
+
