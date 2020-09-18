@@ -11,12 +11,18 @@ app.use(express.static('public'))
 
 const game = createGame()
 
+game.subscribe((command) => {
+    console.log(`Emitting ${command.type}`)
+    socket.emit(command.type, command)
+})
 
 console.log(game.state)
 
 socket.on('connection', (socket) => {
     const playerId = socket.id
     console.log(`Player connected on Server with id ${playerId}`)
+
+    game.addPlayer({playerId: playerId})
 
     socket.emit('setup', game.state)
 })
