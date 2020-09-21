@@ -25,7 +25,14 @@ socket.on('connection', (socket) => {
     game.addPlayer({playerId: playerId})
 
     socket.emit('setup', game.state)
+
+    socket.on('disconnect', () => {
+        game.removePlayer({ playerId: playerId })
+        console.log(`> Player disconnected ${playerId}`)
+    })
+
 })
+
 
 server.listen(3000, () => {
     console.log(`> Server listen on port : 3000`)
