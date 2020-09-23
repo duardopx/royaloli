@@ -26,7 +26,6 @@
 
             const game = createGame()
             const keyBoardListener =  createKeyboardListener(document)
-            keyBoardListener.subscribe(game.movePlayer)
 
             const screen = document.getElementById("screen")
             renderScreen(screen, game, requestAnimationFrame)
@@ -39,14 +38,17 @@
             })
 
             socket.on('setup', (state) => {
+                const playerId = socket.id
                 game.setState(state)
+
+                keyBoardListener.registerPlayerId(playerId)
+                keyBoardListener.subscribe(game.movePlayer)
             })
 
             socket.on('add-player', (command) => {
                 console.log(`Receiving ${command.type} -> ${command.PlayerId}`)
                 game.addPlayer(command)
             })
-
 
             socket.on('remove-player', (command) => {
                 console.log(`Receiving ${command.type} -> ${command.PlayerId}`)
