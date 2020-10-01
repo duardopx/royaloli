@@ -10,6 +10,7 @@ const socket = socketio(server)
 app.use(express.static('public'))
 
 const game = createGame()
+game.start()
 
 game.subscribe((command) => {
     console.log(`Emitting ${command.type}`)
@@ -31,8 +32,12 @@ socket.on('connection', (socket) => {
         console.log(`> Player disconnected ${playerId}`)
     })
 
+    socket.on('move-player', (command) => {
+        command.playerId = playerId
+        command.type = 'move-player'
+        game.movePlayer(command)
+    })
 })
-
 
 server.listen(3000, () => {
     console.log(`> Server listen on port : 3000`)
